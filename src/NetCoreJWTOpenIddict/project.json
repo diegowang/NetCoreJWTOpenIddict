@@ -41,7 +41,9 @@
       "type": "build"
     },
     "Microsoft.EntityFrameworkCore.SqlServer": "1.1.0",
-    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final"
+    "Microsoft.EntityFrameworkCore.Tools": "1.1.0-preview4-final",
+    "OpenIddict": "1.0.0-beta2-0547",
+    "OpenIddict.Mvc": "1.0.0-beta2-0547"
   },
 
   "tools": {
