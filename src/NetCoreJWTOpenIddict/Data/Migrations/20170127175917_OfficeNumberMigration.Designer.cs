@@ -8,9 +8,10 @@ using NetCoreJWTOpenIddict.Data;
 namespace NetCoreJWTOpenIddict.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20170127175917_OfficeNumberMigration")]
+    partial class OfficeNumberMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.1.0-rtm-22752")
