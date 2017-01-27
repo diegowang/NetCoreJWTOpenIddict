@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -60,7 +61,7 @@ namespace NetCoreJWTOpenIddict
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, RoleManager<IdentityRole> roleManager)
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
@@ -92,6 +93,24 @@ namespace NetCoreJWTOpenIddict
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
             });
+
+            InitializeRoles(roleManager);
+        }
+
+        // Initialize some test roles. In the real world, these would be setup explicitly by a role manager
+        private string[] roles = new[] { "User", "Manager", "Administrator" };
+        private async Task InitializeRoles(RoleManager<IdentityRole> roleManager)
+        {
+            foreach (var role in roles)
+            {
+                if (!await roleManager.RoleExistsAsync(role))
+                {
+                    var newRole = new IdentityRole(role);
+                    await roleManager.CreateAsync(newRole);
+                    // In the real world, there might be claims associated with roles
+                    // _roleManager.AddClaimAsync(newRole, new )
+                }
+            }
         }
     }
 }
